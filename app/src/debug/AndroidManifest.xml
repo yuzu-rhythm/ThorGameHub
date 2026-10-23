@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <provider
+            android:name="dev.thorhub.app.testfixture.LaunchContentProvider"
+            android:authorities="${applicationId}.launch-fixture"
+            android:exported="false"
+            android:grantUriPermissions="true" />
+    </application>
+
+</manifest>

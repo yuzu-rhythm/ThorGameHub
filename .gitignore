@@ -1,0 +1,41 @@
+# IDE / machine configuration
+.DS_Store
+*.iml
+.idea/
+.gradle/
+.kotlin/
+local.properties
+# Build / generated evidence
+build/
+**/build/
+.externalNativeBuild/
+.cxx/
+captures/
+*.apk
+*.aab
+*.apks
+*.log
+# Credentials / signing / private diagnostics
+.env
+.env.*
+*.jks
+*.keystore
+*.pem
+*.key
+secrets.properties
+key.properties
+signing.properties
+diagnostics-*.json
+# Personal library / saves / archives
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sav
+*.srm
+*.state
+*.zip
+*.rom
+*.iso
+*.chd
+*.bios

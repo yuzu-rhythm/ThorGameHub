@@ -1,0 +1,2707 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "9ea2299c72a878494537235554f52e23",
+    "entities": [
+      {
+        "tableName": "games",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `canonical_title` TEXT NOT NULL, `sort_title` TEXT NOT NULL, `lifecycle_status` TEXT NOT NULL, `description` TEXT, `release_year` INTEGER, `is_favorite` INTEGER NOT NULL DEFAULT 0, `is_hidden` INTEGER NOT NULL DEFAULT 0, `is_pinned` INTEGER NOT NULL DEFAULT 0, `user_rating` INTEGER, `metadata_provenance_json` TEXT NOT NULL DEFAULT '{}', `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "canonicalTitle",
+            "columnName": "canonical_title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sortTitle",
+            "columnName": "sort_title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lifecycleStatus",
+            "columnName": "lifecycle_status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "releaseYear",
+            "columnName": "release_year",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isFavorite",
+            "columnName": "is_favorite",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "isHidden",
+            "columnName": "is_hidden",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "isPinned",
+            "columnName": "is_pinned",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "userRating",
+            "columnName": "user_rating",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "metadataProvenanceJson",
+            "columnName": "metadata_provenance_json",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'{}'"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_games_canonical_title",
+            "unique": false,
+            "columnNames": [
+              "canonical_title"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_canonical_title` ON `${TABLE_NAME}` (`canonical_title`)"
+          },
+          {
+            "name": "index_games_sort_title",
+            "unique": false,
+            "columnNames": [
+              "sort_title"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_sort_title` ON `${TABLE_NAME}` (`sort_title`)"
+          },
+          {
+            "name": "index_games_lifecycle_status",
+            "unique": false,
+            "columnNames": [
+              "lifecycle_status"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_lifecycle_status` ON `${TABLE_NAME}` (`lifecycle_status`)"
+          },
+          {
+            "name": "index_games_is_pinned",
+            "unique": false,
+            "columnNames": [
+              "is_pinned"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_games_is_pinned` ON `${TABLE_NAME}` (`is_pinned`)"
+          }
+        ]
+      },
+      {
+        "tableName": "game_versions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `game_id` TEXT NOT NULL, `platform` TEXT NOT NULL, `region` TEXT, `language` TEXT, `edition` TEXT, `version_classification` TEXT NOT NULL, `external_id` TEXT, `is_preferred` INTEGER NOT NULL DEFAULT 0, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`game_id`) REFERENCES `games`(`id`) ON UPDATE CASCADE ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gameId",
+            "columnName": "game_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "platform",
+            "columnName": "platform",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "region",
+            "columnName": "region",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "language",
+            "columnName": "language",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "edition",
+            "columnName": "edition",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "versionClassification",
+            "columnName": "version_classification",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "externalId",
+            "columnName": "external_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "isPreferred",
+            "columnName": "is_preferred",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_game_versions_game_id",
+            "unique": false,
+            "columnNames": [
+              "game_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_game_versions_game_id` ON `${TABLE_NAME}` (`game_id`)"
+          },
+          {
+            "name": "index_game_versions_game_id_platform",
+            "unique": false,
+            "columnNames": [
+              "game_id",
+              "platform"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_game_versions_game_id_platform` ON `${TABLE_NAME}` (`game_id`, `platform`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "games",
+            "onDelete": "NO ACTION",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "game_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "devices",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `display_name` TEXT NOT NULL, `platform` TEXT NOT NULL, `os_version` TEXT, `hardware_fingerprint` TEXT, `availability_state` TEXT NOT NULL, `pairing_state` TEXT NOT NULL, `last_seen_at` INTEGER, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "display_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "platform",
+            "columnName": "platform",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "osVersion",
+            "columnName": "os_version",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "hardwareFingerprint",
+            "columnName": "hardware_fingerprint",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "availabilityState",
+            "columnName": "availability_state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pairingState",
+            "columnName": "pairing_state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastSeenAt",
+            "columnName": "last_seen_at",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_devices_hardware_fingerprint",
+            "unique": false,
+            "columnNames": [
+              "hardware_fingerprint"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_devices_hardware_fingerprint` ON `${TABLE_NAME}` (`hardware_fingerprint`)"
+          },
+          {
+            "name": "index_devices_last_seen_at",
+            "unique": false,
+            "columnNames": [
+              "last_seen_at"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_devices_last_seen_at` ON `${TABLE_NAME}` (`last_seen_at`)"
+          },
+          {
+            "name": "index_devices_availability_state",
+            "unique": false,
+            "columnNames": [
+              "availability_state"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_devices_availability_state` ON `${TABLE_NAME}` (`availability_state`)"
+          }
+        ]
+      },
+      {
+        "tableName": "installations",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `game_version_id` TEXT NOT NULL, `device_id` TEXT, `library_root_id` TEXT, `source_type` TEXT NOT NULL, `source_locator` TEXT, `content_fingerprint_id` TEXT, `availability_state` TEXT NOT NULL, `discovered_at` INTEGER NOT NULL, `last_seen_at` INTEGER, `missing_since` INTEGER, `unavailable_reason` TEXT, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`game_version_id`) REFERENCES `game_versions`(`id`) ON UPDATE CASCADE ON DELETE NO ACTION , FOREIGN KEY(`device_id`) REFERENCES `devices`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`library_root_id`) REFERENCES `library_roots`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`content_fingerprint_id`) REFERENCES `content_fingerprints`(`id`) ON UPDATE CASCADE ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gameVersionId",
+            "columnName": "game_version_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deviceId",
+            "columnName": "device_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "libraryRootId",
+            "columnName": "library_root_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sourceType",
+            "columnName": "source_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceLocator",
+            "columnName": "source_locator",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "contentFingerprintId",
+            "columnName": "content_fingerprint_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "availabilityState",
+            "columnName": "availability_state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "discoveredAt",
+            "columnName": "discovered_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastSeenAt",
+            "columnName": "last_seen_at",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "missingSince",
+            "columnName": "missing_since",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "unavailableReason",
+            "columnName": "unavailable_reason",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_installations_game_version_id",
+            "unique": false,
+            "columnNames": [
+              "game_version_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_installations_game_version_id` ON `${TABLE_NAME}` (`game_version_id`)"
+          },
+          {
+            "name": "index_installations_device_id",
+            "unique": false,
+            "columnNames": [
+              "device_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_installations_device_id` ON `${TABLE_NAME}` (`device_id`)"
+          },
+          {
+            "name": "index_installations_library_root_id",
+            "unique": false,
+            "columnNames": [
+              "library_root_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_installations_library_root_id` ON `${TABLE_NAME}` (`library_root_id`)"
+          },
+          {
+            "name": "index_installations_content_fingerprint_id",
+            "unique": false,
+            "columnNames": [
+              "content_fingerprint_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_installations_content_fingerprint_id` ON `${TABLE_NAME}` (`content_fingerprint_id`)"
+          },
+          {
+            "name": "index_installations_availability_state",
+            "unique": false,
+            "columnNames": [
+              "availability_state"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_installations_availability_state` ON `${TABLE_NAME}` (`availability_state`)"
+          },
+          {
+            "name": "index_installations_game_version_id_device_id",
+            "unique": false,
+            "columnNames": [
+              "game_version_id",
+              "device_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_installations_game_version_id_device_id` ON `${TABLE_NAME}` (`game_version_id`, `device_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "game_versions",
+            "onDelete": "NO ACTION",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "game_version_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "devices",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "device_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "library_roots",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "library_root_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "content_fingerprints",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "content_fingerprint_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "launchers",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `display_name` TEXT NOT NULL, `adapter_type` TEXT NOT NULL, `package_candidates_json` TEXT NOT NULL, `component_candidates_json` TEXT NOT NULL, `launch_action` TEXT, `launch_data_template` TEXT, `extras_schema_json` TEXT NOT NULL, `configuration_schema_version` INTEGER NOT NULL, `capability_flags_json` TEXT NOT NULL, `minimum_version_code` INTEGER, `maximum_version_code` INTEGER, `verification_status` TEXT NOT NULL, `verified_at` INTEGER, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "display_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "adapterType",
+            "columnName": "adapter_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "packageCandidatesJson",
+            "columnName": "package_candidates_json",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "componentCandidatesJson",
+            "columnName": "component_candidates_json",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "launchAction",
+            "columnName": "launch_action",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "launchDataTemplate",
+            "columnName": "launch_data_template",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "extrasSchemaJson",
+            "columnName": "extras_schema_json",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "configurationSchemaVersion",
+            "columnName": "configuration_schema_version",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capabilityFlagsJson",
+            "columnName": "capability_flags_json",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "minimumVersionCode",
+            "columnName": "minimum_version_code",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "maximumVersionCode",
+            "columnName": "maximum_version_code",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "verificationStatus",
+            "columnName": "verification_status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "verifiedAt",
+            "columnName": "verified_at",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_launchers_adapter_type",
+            "unique": false,
+            "columnNames": [
+              "adapter_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_launchers_adapter_type` ON `${TABLE_NAME}` (`adapter_type`)"
+          },
+          {
+            "name": "index_launchers_verification_status",
+            "unique": false,
+            "columnNames": [
+              "verification_status"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_launchers_verification_status` ON `${TABLE_NAME}` (`verification_status`)"
+          }
+        ]
+      },
+      {
+        "tableName": "play_methods",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `installation_id` TEXT, `device_id` TEXT, `launcher_id` TEXT, `display_name` TEXT NOT NULL, `priority` INTEGER NOT NULL, `is_preferred` INTEGER NOT NULL DEFAULT 0, `compatibility_state` TEXT NOT NULL, `configuration_json` TEXT NOT NULL, `configuration_schema_version` INTEGER NOT NULL, `last_attempt_at` INTEGER, `last_success_at` INTEGER, `last_failure_code` TEXT, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`installation_id`) REFERENCES `installations`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`device_id`) REFERENCES `devices`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`launcher_id`) REFERENCES `launchers`(`id`) ON UPDATE CASCADE ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "installationId",
+            "columnName": "installation_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "deviceId",
+            "columnName": "device_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "launcherId",
+            "columnName": "launcher_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "display_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "priority",
+            "columnName": "priority",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isPreferred",
+            "columnName": "is_preferred",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "compatibilityState",
+            "columnName": "compatibility_state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "configurationJson",
+            "columnName": "configuration_json",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "configurationSchemaVersion",
+            "columnName": "configuration_schema_version",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastAttemptAt",
+            "columnName": "last_attempt_at",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lastSuccessAt",
+            "columnName": "last_success_at",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lastFailureCode",
+            "columnName": "last_failure_code",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_play_methods_installation_id",
+            "unique": false,
+            "columnNames": [
+              "installation_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_play_methods_installation_id` ON `${TABLE_NAME}` (`installation_id`)"
+          },
+          {
+            "name": "index_play_methods_device_id",
+            "unique": false,
+            "columnNames": [
+              "device_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_play_methods_device_id` ON `${TABLE_NAME}` (`device_id`)"
+          },
+          {
+            "name": "index_play_methods_launcher_id",
+            "unique": false,
+            "columnNames": [
+              "launcher_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_play_methods_launcher_id` ON `${TABLE_NAME}` (`launcher_id`)"
+          },
+          {
+            "name": "index_play_methods_compatibility_state",
+            "unique": false,
+            "columnNames": [
+              "compatibility_state"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_play_methods_compatibility_state` ON `${TABLE_NAME}` (`compatibility_state`)"
+          },
+          {
+            "name": "index_play_methods_installation_id_device_id",
+            "unique": false,
+            "columnNames": [
+              "installation_id",
+              "device_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_play_methods_installation_id_device_id` ON `${TABLE_NAME}` (`installation_id`, `device_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "installations",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "installation_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "devices",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "device_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "launchers",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "launcher_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "game_sessions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `game_id` TEXT NOT NULL, `game_version_id` TEXT, `installation_id` TEXT, `device_id` TEXT, `play_method_id` TEXT, `wall_started_at` INTEGER NOT NULL, `wall_ended_at` INTEGER, `monotonic_started_nanos` INTEGER NOT NULL, `monotonic_ended_nanos` INTEGER, `duration_millis` INTEGER NOT NULL, `state` TEXT NOT NULL, `close_reason` TEXT, `recovery_reason` TEXT, `last_heartbeat_at` INTEGER, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`game_id`) REFERENCES `games`(`id`) ON UPDATE CASCADE ON DELETE NO ACTION , FOREIGN KEY(`game_version_id`) REFERENCES `game_versions`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`installation_id`) REFERENCES `installations`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`device_id`) REFERENCES `devices`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`play_method_id`) REFERENCES `play_methods`(`id`) ON UPDATE CASCADE ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gameId",
+            "columnName": "game_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gameVersionId",
+            "columnName": "game_version_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "installationId",
+            "columnName": "installation_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "deviceId",
+            "columnName": "device_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "playMethodId",
+            "columnName": "play_method_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "wallStartedAt",
+            "columnName": "wall_started_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wallEndedAt",
+            "columnName": "wall_ended_at",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "monotonicStartedNanos",
+            "columnName": "monotonic_started_nanos",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "monotonicEndedNanos",
+            "columnName": "monotonic_ended_nanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "durationMillis",
+            "columnName": "duration_millis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "state",
+            "columnName": "state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "closeReason",
+            "columnName": "close_reason",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "recoveryReason",
+            "columnName": "recovery_reason",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lastHeartbeatAt",
+            "columnName": "last_heartbeat_at",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_game_sessions_game_id",
+            "unique": false,
+            "columnNames": [
+              "game_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_game_sessions_game_id` ON `${TABLE_NAME}` (`game_id`)"
+          },
+          {
+            "name": "index_game_sessions_game_version_id",
+            "unique": false,
+            "columnNames": [
+              "game_version_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_game_sessions_game_version_id` ON `${TABLE_NAME}` (`game_version_id`)"
+          },
+          {
+            "name": "index_game_sessions_installation_id",
+            "unique": false,
+            "columnNames": [
+              "installation_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_game_sessions_installation_id` ON `${TABLE_NAME}` (`installation_id`)"
+          },
+          {
+            "name": "index_game_sessions_device_id",
+            "unique": false,
+            "columnNames": [
+              "device_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_game_sessions_device_id` ON `${TABLE_NAME}` (`device_id`)"
+          },
+          {
+            "name": "index_game_sessions_play_method_id",
+            "unique": false,
+            "columnNames": [
+              "play_method_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_game_sessions_play_method_id` ON `${TABLE_NAME}` (`play_method_id`)"
+          },
+          {
+            "name": "index_game_sessions_state",
+            "unique": false,
+            "columnNames": [
+              "state"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_game_sessions_state` ON `${TABLE_NAME}` (`state`)"
+          },
+          {
+            "name": "index_game_sessions_wall_started_at",
+            "unique": false,
+            "columnNames": [
+              "wall_started_at"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_game_sessions_wall_started_at` ON `${TABLE_NAME}` (`wall_started_at`)"
+          },
+          {
+            "name": "index_game_sessions_game_id_state_wall_started_at",
+            "unique": false,
+            "columnNames": [
+              "game_id",
+              "state",
+              "wall_started_at"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_game_sessions_game_id_state_wall_started_at` ON `${TABLE_NAME}` (`game_id`, `state`, `wall_started_at`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "games",
+            "onDelete": "NO ACTION",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "game_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "game_versions",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "game_version_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "installations",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "installation_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "devices",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "device_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "play_methods",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "play_method_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "notes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `game_id` TEXT, `game_version_id` TEXT, `session_id` TEXT, `device_id` TEXT, `note_type` TEXT NOT NULL, `body` TEXT NOT NULL, `is_pinned` INTEGER NOT NULL DEFAULT 0, `is_completed` INTEGER NOT NULL DEFAULT 0, `revision` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`game_id`) REFERENCES `games`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`game_version_id`) REFERENCES `game_versions`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`session_id`) REFERENCES `game_sessions`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`device_id`) REFERENCES `devices`(`id`) ON UPDATE CASCADE ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gameId",
+            "columnName": "game_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "gameVersionId",
+            "columnName": "game_version_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sessionId",
+            "columnName": "session_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "deviceId",
+            "columnName": "device_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "noteType",
+            "columnName": "note_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "body",
+            "columnName": "body",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isPinned",
+            "columnName": "is_pinned",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "isCompleted",
+            "columnName": "is_completed",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "revision",
+            "columnName": "revision",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_notes_game_id",
+            "unique": false,
+            "columnNames": [
+              "game_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_notes_game_id` ON `${TABLE_NAME}` (`game_id`)"
+          },
+          {
+            "name": "index_notes_game_version_id",
+            "unique": false,
+            "columnNames": [
+              "game_version_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_notes_game_version_id` ON `${TABLE_NAME}` (`game_version_id`)"
+          },
+          {
+            "name": "index_notes_session_id",
+            "unique": false,
+            "columnNames": [
+              "session_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_notes_session_id` ON `${TABLE_NAME}` (`session_id`)"
+          },
+          {
+            "name": "index_notes_device_id",
+            "unique": false,
+            "columnNames": [
+              "device_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_notes_device_id` ON `${TABLE_NAME}` (`device_id`)"
+          },
+          {
+            "name": "index_notes_is_pinned",
+            "unique": false,
+            "columnNames": [
+              "is_pinned"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_notes_is_pinned` ON `${TABLE_NAME}` (`is_pinned`)"
+          },
+          {
+            "name": "index_notes_updated_at",
+            "unique": false,
+            "columnNames": [
+              "updated_at"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_notes_updated_at` ON `${TABLE_NAME}` (`updated_at`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "games",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "game_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "game_versions",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "game_version_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "game_sessions",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "session_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "devices",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "device_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "note_checklist_items",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `note_id` TEXT NOT NULL, `position` INTEGER NOT NULL, `text` TEXT NOT NULL, `is_completed` INTEGER NOT NULL DEFAULT 0, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`note_id`) REFERENCES `notes`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "noteId",
+            "columnName": "note_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isCompleted",
+            "columnName": "is_completed",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_note_checklist_items_note_id",
+            "unique": false,
+            "columnNames": [
+              "note_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_note_checklist_items_note_id` ON `${TABLE_NAME}` (`note_id`)"
+          },
+          {
+            "name": "index_note_checklist_items_note_id_position",
+            "unique": false,
+            "columnNames": [
+              "note_id",
+              "position"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_note_checklist_items_note_id_position` ON `${TABLE_NAME}` (`note_id`, `position`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "notes",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "note_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "save_profiles",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `game_version_id` TEXT, `installation_id` TEXT, `device_id` TEXT, `adapter_id` TEXT, `access_method` TEXT NOT NULL, `root_locator` TEXT, `relative_include_json` TEXT NOT NULL, `relative_exclude_json` TEXT NOT NULL, `save_type` TEXT NOT NULL, `compatibility_fingerprint` TEXT, `save_state` TEXT NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`game_version_id`) REFERENCES `game_versions`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`installation_id`) REFERENCES `installations`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`device_id`) REFERENCES `devices`(`id`) ON UPDATE CASCADE ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gameVersionId",
+            "columnName": "game_version_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "installationId",
+            "columnName": "installation_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "deviceId",
+            "columnName": "device_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "adapterId",
+            "columnName": "adapter_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "accessMethod",
+            "columnName": "access_method",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rootLocator",
+            "columnName": "root_locator",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "relativeIncludeJson",
+            "columnName": "relative_include_json",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "relativeExcludeJson",
+            "columnName": "relative_exclude_json",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "saveType",
+            "columnName": "save_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "compatibilityFingerprint",
+            "columnName": "compatibility_fingerprint",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "saveState",
+            "columnName": "save_state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_save_profiles_game_version_id",
+            "unique": false,
+            "columnNames": [
+              "game_version_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_save_profiles_game_version_id` ON `${TABLE_NAME}` (`game_version_id`)"
+          },
+          {
+            "name": "index_save_profiles_installation_id",
+            "unique": false,
+            "columnNames": [
+              "installation_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_save_profiles_installation_id` ON `${TABLE_NAME}` (`installation_id`)"
+          },
+          {
+            "name": "index_save_profiles_device_id",
+            "unique": false,
+            "columnNames": [
+              "device_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_save_profiles_device_id` ON `${TABLE_NAME}` (`device_id`)"
+          },
+          {
+            "name": "index_save_profiles_save_state",
+            "unique": false,
+            "columnNames": [
+              "save_state"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_save_profiles_save_state` ON `${TABLE_NAME}` (`save_state`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "game_versions",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "game_version_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "installations",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "installation_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "devices",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "device_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "save_snapshots",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `save_profile_id` TEXT, `device_id` TEXT, `session_id` TEXT, `parent_snapshot_id` TEXT, `capture_reason` TEXT NOT NULL, `snapshot_state` TEXT NOT NULL, `compatibility_fingerprint` TEXT, `manifest_schema_version` INTEGER NOT NULL, `storage_token` TEXT, `content_hash` TEXT, `captured_at` INTEGER NOT NULL, `retention_class` TEXT, `error_code` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`save_profile_id`) REFERENCES `save_profiles`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`device_id`) REFERENCES `devices`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`session_id`) REFERENCES `game_sessions`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`parent_snapshot_id`) REFERENCES `save_snapshots`(`id`) ON UPDATE CASCADE ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "saveProfileId",
+            "columnName": "save_profile_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "deviceId",
+            "columnName": "device_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sessionId",
+            "columnName": "session_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "parentSnapshotId",
+            "columnName": "parent_snapshot_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "captureReason",
+            "columnName": "capture_reason",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "snapshotState",
+            "columnName": "snapshot_state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "compatibilityFingerprint",
+            "columnName": "compatibility_fingerprint",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "manifestSchemaVersion",
+            "columnName": "manifest_schema_version",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "storageToken",
+            "columnName": "storage_token",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "contentHash",
+            "columnName": "content_hash",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "capturedAt",
+            "columnName": "captured_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retentionClass",
+            "columnName": "retention_class",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "errorCode",
+            "columnName": "error_code",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_save_snapshots_save_profile_id",
+            "unique": false,
+            "columnNames": [
+              "save_profile_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_save_snapshots_save_profile_id` ON `${TABLE_NAME}` (`save_profile_id`)"
+          },
+          {
+            "name": "index_save_snapshots_device_id",
+            "unique": false,
+            "columnNames": [
+              "device_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_save_snapshots_device_id` ON `${TABLE_NAME}` (`device_id`)"
+          },
+          {
+            "name": "index_save_snapshots_session_id",
+            "unique": false,
+            "columnNames": [
+              "session_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_save_snapshots_session_id` ON `${TABLE_NAME}` (`session_id`)"
+          },
+          {
+            "name": "index_save_snapshots_parent_snapshot_id",
+            "unique": false,
+            "columnNames": [
+              "parent_snapshot_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_save_snapshots_parent_snapshot_id` ON `${TABLE_NAME}` (`parent_snapshot_id`)"
+          },
+          {
+            "name": "index_save_snapshots_captured_at",
+            "unique": false,
+            "columnNames": [
+              "captured_at"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_save_snapshots_captured_at` ON `${TABLE_NAME}` (`captured_at`)"
+          },
+          {
+            "name": "index_save_snapshots_snapshot_state",
+            "unique": false,
+            "columnNames": [
+              "snapshot_state"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_save_snapshots_snapshot_state` ON `${TABLE_NAME}` (`snapshot_state`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "save_profiles",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "save_profile_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "devices",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "device_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "game_sessions",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "session_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "save_snapshots",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "parent_snapshot_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "save_snapshot_files",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `snapshot_id` TEXT NOT NULL, `relative_path` TEXT NOT NULL, `size_bytes` INTEGER NOT NULL, `content_hash` TEXT NOT NULL, `source_modified_at` INTEGER, `created_at` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`snapshot_id`) REFERENCES `save_snapshots`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "snapshotId",
+            "columnName": "snapshot_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "relativePath",
+            "columnName": "relative_path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sizeBytes",
+            "columnName": "size_bytes",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contentHash",
+            "columnName": "content_hash",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceModifiedAt",
+            "columnName": "source_modified_at",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_save_snapshot_files_snapshot_id",
+            "unique": false,
+            "columnNames": [
+              "snapshot_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_save_snapshot_files_snapshot_id` ON `${TABLE_NAME}` (`snapshot_id`)"
+          },
+          {
+            "name": "index_save_snapshot_files_snapshot_id_relative_path",
+            "unique": true,
+            "columnNames": [
+              "snapshot_id",
+              "relative_path"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_save_snapshot_files_snapshot_id_relative_path` ON `${TABLE_NAME}` (`snapshot_id`, `relative_path`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "save_snapshots",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "snapshot_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "collections",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `collection_type` TEXT NOT NULL, `query_definition_json` TEXT, `sort_order` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "collectionType",
+            "columnName": "collection_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "queryDefinitionJson",
+            "columnName": "query_definition_json",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sortOrder",
+            "columnName": "sort_order",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_collections_collection_type",
+            "unique": false,
+            "columnNames": [
+              "collection_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_collections_collection_type` ON `${TABLE_NAME}` (`collection_type`)"
+          },
+          {
+            "name": "index_collections_sort_order",
+            "unique": false,
+            "columnNames": [
+              "sort_order"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_collections_sort_order` ON `${TABLE_NAME}` (`sort_order`)"
+          }
+        ]
+      },
+      {
+        "tableName": "collection_members",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`collection_id` TEXT NOT NULL, `game_id` TEXT NOT NULL, `position` INTEGER NOT NULL, `added_at` INTEGER NOT NULL, PRIMARY KEY(`collection_id`, `game_id`), FOREIGN KEY(`collection_id`) REFERENCES `collections`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`game_id`) REFERENCES `games`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "collectionId",
+            "columnName": "collection_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gameId",
+            "columnName": "game_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "addedAt",
+            "columnName": "added_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "collection_id",
+            "game_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_collection_members_collection_id",
+            "unique": false,
+            "columnNames": [
+              "collection_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_collection_members_collection_id` ON `${TABLE_NAME}` (`collection_id`)"
+          },
+          {
+            "name": "index_collection_members_game_id",
+            "unique": false,
+            "columnNames": [
+              "game_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_collection_members_game_id` ON `${TABLE_NAME}` (`game_id`)"
+          },
+          {
+            "name": "index_collection_members_collection_id_position",
+            "unique": false,
+            "columnNames": [
+              "collection_id",
+              "position"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_collection_members_collection_id_position` ON `${TABLE_NAME}` (`collection_id`, `position`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "collections",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "collection_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "games",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "game_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "library_roots",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `device_id` TEXT, `tree_uri` TEXT NOT NULL, `platform_hint` TEXT, `source_type` TEXT NOT NULL, `access_flags` INTEGER NOT NULL, `provider_authority` TEXT, `root_state` TEXT NOT NULL, `last_successful_scan_at` INTEGER, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`device_id`) REFERENCES `devices`(`id`) ON UPDATE CASCADE ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deviceId",
+            "columnName": "device_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "treeUri",
+            "columnName": "tree_uri",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "platformHint",
+            "columnName": "platform_hint",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sourceType",
+            "columnName": "source_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accessFlags",
+            "columnName": "access_flags",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "providerAuthority",
+            "columnName": "provider_authority",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "rootState",
+            "columnName": "root_state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastSuccessfulScanAt",
+            "columnName": "last_successful_scan_at",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_library_roots_device_id",
+            "unique": false,
+            "columnNames": [
+              "device_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_library_roots_device_id` ON `${TABLE_NAME}` (`device_id`)"
+          },
+          {
+            "name": "index_library_roots_tree_uri",
+            "unique": false,
+            "columnNames": [
+              "tree_uri"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_library_roots_tree_uri` ON `${TABLE_NAME}` (`tree_uri`)"
+          },
+          {
+            "name": "index_library_roots_root_state",
+            "unique": false,
+            "columnNames": [
+              "root_state"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_library_roots_root_state` ON `${TABLE_NAME}` (`root_state`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "devices",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "device_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "content_fingerprints",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `algorithm` TEXT NOT NULL, `value` TEXT NOT NULL, `identity_key` TEXT, `size_bytes` INTEGER, `modified_at` INTEGER, `created_at` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "algorithm",
+            "columnName": "algorithm",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "identityKey",
+            "columnName": "identity_key",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sizeBytes",
+            "columnName": "size_bytes",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "modifiedAt",
+            "columnName": "modified_at",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_content_fingerprints_algorithm_value",
+            "unique": true,
+            "columnNames": [
+              "algorithm",
+              "value"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_content_fingerprints_algorithm_value` ON `${TABLE_NAME}` (`algorithm`, `value`)"
+          },
+          {
+            "name": "index_content_fingerprints_identity_key",
+            "unique": false,
+            "columnNames": [
+              "identity_key"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_content_fingerprints_identity_key` ON `${TABLE_NAME}` (`identity_key`)"
+          }
+        ]
+      },
+      {
+        "tableName": "artwork_assets",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `game_id` TEXT, `game_version_id` TEXT, `artwork_kind` TEXT NOT NULL, `locator` TEXT NOT NULL, `provenance` TEXT, `license_attribution` TEXT, `mime_type` TEXT, `width` INTEGER, `height` INTEGER, `content_hash` TEXT, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`game_id`) REFERENCES `games`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`game_version_id`) REFERENCES `game_versions`(`id`) ON UPDATE CASCADE ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gameId",
+            "columnName": "game_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "gameVersionId",
+            "columnName": "game_version_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "artworkKind",
+            "columnName": "artwork_kind",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locator",
+            "columnName": "locator",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "provenance",
+            "columnName": "provenance",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "licenseAttribution",
+            "columnName": "license_attribution",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "mimeType",
+            "columnName": "mime_type",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "width",
+            "columnName": "width",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "height",
+            "columnName": "height",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "contentHash",
+            "columnName": "content_hash",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_artwork_assets_game_id",
+            "unique": false,
+            "columnNames": [
+              "game_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_artwork_assets_game_id` ON `${TABLE_NAME}` (`game_id`)"
+          },
+          {
+            "name": "index_artwork_assets_game_version_id",
+            "unique": false,
+            "columnNames": [
+              "game_version_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_artwork_assets_game_version_id` ON `${TABLE_NAME}` (`game_version_id`)"
+          },
+          {
+            "name": "index_artwork_assets_artwork_kind",
+            "unique": false,
+            "columnNames": [
+              "artwork_kind"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_artwork_assets_artwork_kind` ON `${TABLE_NAME}` (`artwork_kind`)"
+          },
+          {
+            "name": "index_artwork_assets_game_id_artwork_kind",
+            "unique": false,
+            "columnNames": [
+              "game_id",
+              "artwork_kind"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_artwork_assets_game_id_artwork_kind` ON `${TABLE_NAME}` (`game_id`, `artwork_kind`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "games",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "game_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "game_versions",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "game_version_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "capability_records",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `device_id` TEXT, `build_fingerprint` TEXT, `capability_key` TEXT NOT NULL, `capability_state` TEXT NOT NULL, `evidence_code` TEXT, `evidence_summary` TEXT, `diagnostic_code` TEXT, `tested_at` INTEGER NOT NULL, `expires_at` INTEGER, PRIMARY KEY(`id`), FOREIGN KEY(`device_id`) REFERENCES `devices`(`id`) ON UPDATE CASCADE ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deviceId",
+            "columnName": "device_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "buildFingerprint",
+            "columnName": "build_fingerprint",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "capabilityKey",
+            "columnName": "capability_key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capabilityState",
+            "columnName": "capability_state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "evidenceCode",
+            "columnName": "evidence_code",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "evidenceSummary",
+            "columnName": "evidence_summary",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "diagnosticCode",
+            "columnName": "diagnostic_code",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "testedAt",
+            "columnName": "tested_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "expiresAt",
+            "columnName": "expires_at",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_capability_records_device_id",
+            "unique": false,
+            "columnNames": [
+              "device_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_capability_records_device_id` ON `${TABLE_NAME}` (`device_id`)"
+          },
+          {
+            "name": "index_capability_records_capability_key",
+            "unique": false,
+            "columnNames": [
+              "capability_key"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_capability_records_capability_key` ON `${TABLE_NAME}` (`capability_key`)"
+          },
+          {
+            "name": "index_capability_records_capability_state",
+            "unique": false,
+            "columnNames": [
+              "capability_state"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_capability_records_capability_state` ON `${TABLE_NAME}` (`capability_state`)"
+          },
+          {
+            "name": "index_capability_records_device_id_build_fingerprint_capability_key",
+            "unique": true,
+            "columnNames": [
+              "device_id",
+              "build_fingerprint",
+              "capability_key"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_capability_records_device_id_build_fingerprint_capability_key` ON `${TABLE_NAME}` (`device_id`, `build_fingerprint`, `capability_key`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "devices",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "device_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "diagnostic_events",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `device_id` TEXT, `capability_record_id` TEXT, `session_id` TEXT, `event_code` TEXT NOT NULL, `severity` TEXT NOT NULL, `summary` TEXT NOT NULL, `package_name` TEXT, `component_name` TEXT, `requested_display_id` INTEGER, `actual_display_id` INTEGER, `duration_millis` INTEGER, `sanitized_metadata_json` TEXT NOT NULL, `occurred_at` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`device_id`) REFERENCES `devices`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`capability_record_id`) REFERENCES `capability_records`(`id`) ON UPDATE CASCADE ON DELETE SET NULL , FOREIGN KEY(`session_id`) REFERENCES `game_sessions`(`id`) ON UPDATE CASCADE ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deviceId",
+            "columnName": "device_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "capabilityRecordId",
+            "columnName": "capability_record_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sessionId",
+            "columnName": "session_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "eventCode",
+            "columnName": "event_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "severity",
+            "columnName": "severity",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "summary",
+            "columnName": "summary",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "packageName",
+            "columnName": "package_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "componentName",
+            "columnName": "component_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "requestedDisplayId",
+            "columnName": "requested_display_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "actualDisplayId",
+            "columnName": "actual_display_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "durationMillis",
+            "columnName": "duration_millis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sanitizedMetadataJson",
+            "columnName": "sanitized_metadata_json",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "occurredAt",
+            "columnName": "occurred_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_diagnostic_events_device_id",
+            "unique": false,
+            "columnNames": [
+              "device_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_diagnostic_events_device_id` ON `${TABLE_NAME}` (`device_id`)"
+          },
+          {
+            "name": "index_diagnostic_events_capability_record_id",
+            "unique": false,
+            "columnNames": [
+              "capability_record_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_diagnostic_events_capability_record_id` ON `${TABLE_NAME}` (`capability_record_id`)"
+          },
+          {
+            "name": "index_diagnostic_events_session_id",
+            "unique": false,
+            "columnNames": [
+              "session_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_diagnostic_events_session_id` ON `${TABLE_NAME}` (`session_id`)"
+          },
+          {
+            "name": "index_diagnostic_events_occurred_at",
+            "unique": false,
+            "columnNames": [
+              "occurred_at"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_diagnostic_events_occurred_at` ON `${TABLE_NAME}` (`occurred_at`)"
+          },
+          {
+            "name": "index_diagnostic_events_event_code",
+            "unique": false,
+            "columnNames": [
+              "event_code"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_diagnostic_events_event_code` ON `${TABLE_NAME}` (`event_code`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "devices",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "device_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "capability_records",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "capability_record_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "game_sessions",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "session_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "display_assignments",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `device_id` TEXT, `display_id` INTEGER NOT NULL, `display_role` TEXT NOT NULL, `width` INTEGER, `height` INTEGER, `density_dpi` INTEGER, `rotation` INTEGER, `refresh_rate_hz` REAL, `flags` INTEGER NOT NULL, `is_verified` INTEGER NOT NULL DEFAULT 0, `build_fingerprint` TEXT, `assigned_at` INTEGER NOT NULL, `evidence_code` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`device_id`) REFERENCES `devices`(`id`) ON UPDATE CASCADE ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deviceId",
+            "columnName": "device_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "displayId",
+            "columnName": "display_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayRole",
+            "columnName": "display_role",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "width",
+            "columnName": "width",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "height",
+            "columnName": "height",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "densityDpi",
+            "columnName": "density_dpi",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "rotation",
+            "columnName": "rotation",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "refreshRateHz",
+            "columnName": "refresh_rate_hz",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "flags",
+            "columnName": "flags",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isVerified",
+            "columnName": "is_verified",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "buildFingerprint",
+            "columnName": "build_fingerprint",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "assignedAt",
+            "columnName": "assigned_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "evidenceCode",
+            "columnName": "evidence_code",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_display_assignments_device_id",
+            "unique": false,
+            "columnNames": [
+              "device_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_display_assignments_device_id` ON `${TABLE_NAME}` (`device_id`)"
+          },
+          {
+            "name": "index_display_assignments_display_role",
+            "unique": false,
+            "columnNames": [
+              "display_role"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_display_assignments_display_role` ON `${TABLE_NAME}` (`display_role`)"
+          },
+          {
+            "name": "index_display_assignments_device_id_display_id_build_fingerprint",
+            "unique": true,
+            "columnNames": [
+              "device_id",
+              "display_id",
+              "build_fingerprint"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_display_assignments_device_id_display_id_build_fingerprint` ON `${TABLE_NAME}` (`device_id`, `display_id`, `build_fingerprint`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "devices",
+            "onDelete": "SET NULL",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "device_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9ea2299c72a878494537235554f52e23')"
+    ]
+  }
+}
